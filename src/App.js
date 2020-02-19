@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { DragDropContext  } from 'react-beautiful-dnd';
 
 import List from './components/List'
-import Header from './header'
+import Header from './components/header'
 
 import './App.css';
 
-class App extends Component {
+class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,8 +15,8 @@ class App extends Component {
     };  
   }
 
-  handleChange = (e, index, dataname) => {
-    const arr = [...this.state[dataname]];    
+  handleChange = (e, index, dataName) => {
+    const arr = [...this.state[dataName]];    
     arr.splice(index, 1, e.target.value);
 
     if (index === arr.length - 1) {
@@ -25,7 +25,7 @@ class App extends Component {
       arr.splice(index, 1);
     }
 
-    this.setState({ [dataname]: arr })
+    this.setState({ [dataName]: arr })
  }
 
   handleDrag = ({ source, destination }) => {
@@ -33,7 +33,7 @@ class App extends Component {
     const { index: startIndex, droppableId: dragColumn } = source;
     const { index: endIndex, droppableId: dropColumn } = destination;
     
-    if(dragColumn === dropColumn ) {
+    if(dragColumn === dropColumn) {
       const result = [...this.state[dragColumn]];
       
       if (endIndex === result.length -1) {
@@ -48,26 +48,27 @@ class App extends Component {
       const dragResult = [...this.state[dragColumn]];
       const dropResult = [...this.state[dropColumn]];
 
-      if ( endIndex === dropResult.length -1 ) {
+      if (endIndex === dropResult.length -1) {
         return;
       }
 
       const [changed] = dragResult.splice(startIndex, 1)
       dropResult.splice(endIndex, 0, changed)
-      this.setState({ [dragColumn]: dragResult, [dropColumn]: dropResult });
+      this.setState({ [dragColumn]: dragResult });
+      this.setState({ [dropColumn]: dropResult });
     }    
   }
 
   render() {
     return (
     <div>
-      <Header />
-        <div className='flex'>  
-            <DragDropContext onDragEnd={this.handleDrag}>
-                    <List data={this.state.toDo} handleChange={this.handleChange} dataname='toDo' />
-                    <List data={this.state.completed} handleChange={this.handleChange} dataname='completed' />
-            </DragDropContext>
-          </div>
+      <Header title={'Users'} />
+      <div className='flex'>  
+        <DragDropContext onDragEnd={this.handleDrag}>
+          <List data={this.state.toDo} handleChange={this.handleChange} dataName='toDo' />
+          <List data={this.state.completed} handleChange={this.handleChange} dataName='completed' />
+        </DragDropContext>
+      </div>
     </div>
     );
   }
