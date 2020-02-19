@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { DragDropContext  } from 'react-beautiful-dnd';
+import { Fragment } from 'react'
 
 import List from './components/List'
 import Header from './components/header'
@@ -61,15 +62,19 @@ class App extends PureComponent {
 
   render() {
     return (
-    <div>
+    <Fragment>
       <Header title={'Users'} />
       <div className='flex'>  
         <DragDropContext onDragEnd={this.handleDrag}>
-          <List data={this.state.toDo} handleChange={this.handleChange} dataName='toDo' />
-          <List data={this.state.completed} handleChange={this.handleChange} dataName='completed' />
+          <List data={this.state.toDo}
+                handleChange={this.handleChange} 
+                dataName='toDo' />
+          <List data={this.state.completed}
+                handleChange={this.handleChange}
+                dataName='completed' />
         </DragDropContext>
       </div>
-    </div>
+    </Fragment>
     );
   }
 };
