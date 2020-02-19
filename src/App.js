@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DragDropContext  } from 'react-beautiful-dnd';
 
-import List from './components/data'
+import List from './components/List'
 import Header from './header'
 
 import './App.css';
@@ -17,7 +17,7 @@ class App extends Component {
 
   handleChange = (e, index, dataname) => {
     const arr = [...this.state[dataname]];    
-    arr.splice( index, 1, e.target.value );
+    arr.splice(index, 1, e.target.value);
 
     if (index === arr.length - 1) {
       arr.push("");
@@ -40,7 +40,7 @@ class App extends Component {
         return;
       }
 
-      const [removed] = result.splice( startIndex, 1 );
+      const [removed] = result.splice(startIndex, 1);
       result.splice(endIndex, 0, removed);
   
       this.setState({ [dragColumn]: result });
@@ -52,8 +52,8 @@ class App extends Component {
         return;
       }
 
-      const [changed] = dragResult.splice( startIndex, 1 )
-      dropResult.splice( endIndex, 0, changed )
+      const [changed] = dragResult.splice(startIndex, 1)
+      dropResult.splice(endIndex, 0, changed)
       this.setState({ [dragColumn]: dragResult, [dropColumn]: dropResult });
     }    
   }
