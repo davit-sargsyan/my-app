@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 const List = ({ dataName, data, handleChange }) => {
@@ -39,4 +38,4 @@ const List = ({ dataName, data, handleChange }) => {
     )
 }
 
-export default List;
+export default List

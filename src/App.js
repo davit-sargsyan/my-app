@@ -1,21 +1,17 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { DragDropContext  } from 'react-beautiful-dnd';
-import { Fragment } from 'react'
 
 import List from './components/list'
-import Header from './components/header/index'
-
+import Header from './components/header'
 import './App.css';
 
 class App extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
+  
+  state = {
       toDo: ['Armen', 'David', 'Karen', 'Hayk', 'Karlen', ''],
       completed: ['Arman', 'Vardan', 'Suren', ''],
-    };  
-  }
-
+  };  
+  
   handleChange = (e, index, dataName) => {
     const arr = [...this.state[dataName]];    
     arr.splice(index, 1, e.target.value);
@@ -26,7 +22,7 @@ class App extends PureComponent {
       arr.splice(index, 1);
     }
 
-    this.setState({ [dataName]: arr })
+    this.setState({ [dataName]: arr });
  }
 
   handleDrag = ({ source, destination }) => {
@@ -53,32 +49,31 @@ class App extends PureComponent {
         return;
       }
 
-      const [changed] = dragResult.splice(startIndex, 1)
-      dropResult.splice(endIndex, 0, changed)
-      this.setState({ [dragColumn]: dragResult });
-      this.setState({ [dropColumn]: dropResult });
+      const [changed] = dragResult.splice(startIndex, 1);
+      dropResult.splice(endIndex, 0, changed);
+      this.setState({ [dragColumn]: dragResult, [dropColumn]: dropResult   });
     }    
   }
 
   render() {
     return (
-    <Fragment>
-      <Header title={'Users'} />
-      <div className='flex'>  
-        <DragDropContext onDragEnd={this.handleDrag}>
-          <List 
-            data={this.state.toDo}
-            handleChange={this.handleChange} 
-            dataName='toDo' 
-          />
-          <List 
-            data={this.state.completed}
-            handleChange={this.handleChange}
-            dataName='completed' 
-          />
-        </DragDropContext>
-      </div>
-    </Fragment>
+      <Fragment>
+        <Header title='Users'/>
+        <div className='flex'>  
+          <DragDropContext onDragEnd={this.handleDrag}>
+            <List 
+              data={this.state.toDo}
+              handleChange={this.handleChange} 
+              dataName='toDo' 
+            />
+            <List 
+              data={this.state.completed}
+              handleChange={this.handleChange}
+              dataName='completed' 
+            />
+          </DragDropContext>
+        </div>
+      </Fragment>
     );
   }
 };
