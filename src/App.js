@@ -1,8 +1,9 @@
 import React, { PureComponent, Fragment } from 'react';
 import { DragDropContext  } from 'react-beautiful-dnd';
 
-import List from './components/list'
-import Header from './components/header'
+import List from './components/list';
+import Header from './components/header';
+
 import './App.css';
 
 class App extends PureComponent {
@@ -17,8 +18,8 @@ class App extends PureComponent {
     arr.splice(index, 1, e.target.value);
 
     if (index === arr.length - 1) {
-      arr.push("");
-    } else if (e.target.value === "") {
+      arr.push('');
+    } else if (e.target.value === '') {
       arr.splice(index, 1);
     }
 
@@ -30,7 +31,7 @@ class App extends PureComponent {
     const { index: startIndex, droppableId: dragColumn } = source;
     const { index: endIndex, droppableId: dropColumn } = destination;
     
-    if(dragColumn === dropColumn) {
+    if (dragColumn === dropColumn) {
       const result = [...this.state[dragColumn]];
       
       if (endIndex === result.length -1) {
@@ -58,18 +59,18 @@ class App extends PureComponent {
   render() {
     return (
       <Fragment>
-        <Header title='Users'/>
-        <div className='flex'>  
+        <Header title="Users"/>
+        <div className="flex">  
           <DragDropContext onDragEnd={this.handleDrag}>
             <List 
               data={this.state.toDo}
               handleChange={this.handleChange} 
-              dataName='toDo' 
+              dataName="toDo" 
             />
             <List 
               data={this.state.completed}
               handleChange={this.handleChange}
-              dataName='completed' 
+              dataName="completed" 
             />
           </DragDropContext>
         </div>

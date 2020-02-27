@@ -5,7 +5,7 @@ const List = ({ dataName, data, handleChange }) => {
 
   return (
     <Droppable droppableId={dataName}>
-        {provided => (
+        { provided => (
           <ol
             {...provided.droppableProps}
             ref={provided.innerRef}
@@ -17,7 +17,7 @@ const List = ({ dataName, data, handleChange }) => {
                 draggableId={`${dataName}${index}`}
                 index={index}
               >
-                {(provided) => (
+                { provided => (
                   <li 
                     ref={provided.innerRef}
                     {...provided.draggableProps}
@@ -25,7 +25,7 @@ const List = ({ dataName, data, handleChange }) => {
                   >
                     <input
                       className='noBorders'
-                      onChange={(event) => handleChange(event, index, dataName)}
+                      onChange={ event => handleChange(event, index, dataName)}
                       value={value}
                     />
                   </li>
@@ -38,4 +38,4 @@ const List = ({ dataName, data, handleChange }) => {
     )
 }
 
-export default List
+export default List;
