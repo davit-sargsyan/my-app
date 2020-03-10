@@ -28,27 +28,29 @@ class App extends PureComponent {
 
   handleDrag = ({ source, destination }) => {
 
-    const { index: startIndex, droppableId: dragColumn } = source;
-    const { index: endIndex, droppableId: dropColumn } = destination;
-    const dropResult = [...this.state[dropColumn]];
-    const dragResult = [...this.state[dragColumn]];
-    const result = [...this.state[dragColumn]];
-
-    if (endIndex === result.length -1 || endIndex === dropResult.length) {
-        return;
-      };
-
-    if (dragColumn === dropColumn) {
-      const [removed] = result.splice(startIndex, 1);
-      result.splice(endIndex, 0, removed);
-      this.setState({ [dragColumn]: result });
-    } 
+    const { index: startIndex, droppableId } = source;
+    const { index: endIndex } = destination;
+    const dragResult = [...this.state[droppableId]];
+    const dropResult = [...this.state[destination.droppableId]];
     
-    else {
-      const [changed] = dragResult.splice(startIndex, 1);
-      dropResult.splice(endIndex, 0, changed);
-      this.setState({ [dragColumn]: dragResult, [dropColumn]: dropResult });
-    };  
+    if (endIndex === dropResult.length-1 || endIndex === dropResult.length) {
+      return;
+    };
+    
+    const [removed] = dragResult.splice(startIndex, 1);
+    
+    this.setState(() => {
+
+      if(droppableId !== destination.droppableId) {
+        dropResult.splice(endIndex, 0, removed);
+        return { [droppableId]: dragResult, [destination.droppableId]: dropResult };
+      };
+      dragResult.splice(endIndex, 0, removed);
+      return {
+        [droppableId]: dragResult
+      };
+    });
+ 
   };
 
   render() {

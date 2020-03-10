@@ -1,9 +1,7 @@
 import React from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-const List = ({ dataName, data, handleChange }) => {
-
-  return (
+const List = ({ dataName, data, handleChange }) => (
     <Droppable droppableId={dataName}>
         { provided => (
           <ol
@@ -36,6 +34,5 @@ const List = ({ dataName, data, handleChange }) => {
         )}
       </Droppable>
     )
-}
 
 export default List;
